@@ -1,0 +1,7 @@
+PyQt6
+pyblender
+Pillow
+pydub
+pyogg
+pefile
+numpy
