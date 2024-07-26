@@ -1,4 +1,4 @@
-BGE Asset Ripper
+aeBGE Asset Ripper
 ================
 
 A Python tool for extracting assets, code, and data from Blender Game Engine (BGE) executable files.
@@ -19,7 +19,7 @@ A Python tool for extracting assets, code, and data from Blender Game Engine (BG
 
 **License:**
 
-The BGE Asset Ripper is licensed under the MIT License. See LICENSE.txt for details.
+The BGE Asset Ripper is licensed under the MIT License. See LICENSE for details.
 
 **Contributing:**
 
