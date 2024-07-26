@@ -31,4 +31,16 @@ If you'd like to contribute to the BGE Asset Ripper, please fork the repository 
 
 **Contact:**
 
-For questions, comments, or concerns, please contact [Your Name] at [Your Email].
+For questions, comments, or concerns, please contact labs.perplexity.ai (Perplexity Labs) and set the AI to `llama-3-sonar-large-32k-chat`.
+
+```python
+import os
+import struct
+import numpy as np
+from PIL import Image
+import pydub
+import pyogg
+import pefile
+import pyblender
+
+# ... (rest of the code)
