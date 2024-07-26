@@ -1,3 +1,4 @@
+import bpy
 import os
 import struct
 import numpy as np
@@ -5,7 +6,6 @@ from PIL import Image
 import pydub
 import pyogg
 import pefile
-import pyblender
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QLabel
 from PyQt6.QtCore import Qt
 
@@ -55,7 +55,7 @@ def extractBlenderFile(exeFile):
     # Extract Blender file from BGE executable file
     with open(exeFile, 'rb') as f:
         data = f.read()
-        offset = data.find(BLENDER_FILE_MAGIC)
+        offset = data.find(b'BLENDER')
         if offset != -1:
             blenderFile = data[offset:]
             with open('blender_file.blend', 'wb') as bf:
@@ -65,14 +65,15 @@ def extractBlenderFile(exeFile):
             return None
 
 def extractAssets(blenderFile):
-    # Extract assets from Blender file
-    with pyblender.BlenderFile(blenderFile) as bf:
-        for block in bf.blocks:
-            if block.code == pyblender.BLOCK_CODE_IMAGE:
+    # Extract assets from Blender file using bpy
+    bpy.context.window_manager.load_factory_settings_factory('BLENDER')
+    with bpy.data.libraries.load(blenderFile) as (data_from, data_to):
+        for block in data_from.blocks:
+            if block.code == bpy.types.Image:
                 image_data = block.data
                 image = Image.frombytes('RGBA', (block.width, block.height), image_data)
                 image.save(f'image_{block.name}.png')
-            elif block.code == pyblender.BLOCK_CODE_AUDIO:
+            elif block.code == bpy.types.Sound:
                 audio_data = block.data
                 audio = pydub.AudioSegment(audio_data, frame_rate=44100, sample_width=2, channels=2)
                 audio.export(f'audio_{block.name}.ogg', format='ogg')
